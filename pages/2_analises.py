@@ -44,7 +44,8 @@ conn = get_connection()
 
 def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
-    engine = get_database_connection()
+    if conn is None:
+        st.stop()
     query = "SELECT * FROM questionario_covid;"
     df = pd.read_sql_query(query, con=engine)
     
