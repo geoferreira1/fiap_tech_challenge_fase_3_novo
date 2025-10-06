@@ -5,7 +5,8 @@ Imagine agora que você foi contratado(a) como Expert em Data Analytics por um g
 
 Apesar de ser contratado(a) agora, a sua área observou que a utilização do estudo do PNAD-COVID 19 do IBGE seria uma ótima base para termos boas respostas ao problema proposto, pois são dados confiáveis. Porém, não será necessário utilizar todas as perguntas realizadas na pesquisa para enxergar todas as oportunidades ali postas.
 
-Condições:
+**Condições:**
+
 É sempre bom ressaltar que há dados triviais que precisam estar no projeto, pois auxiliam muito na análise dos dados:
 
 - Características clínicas dos sintomas;
