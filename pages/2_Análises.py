@@ -19,11 +19,11 @@ A partir dessas condições, trouxemos uma breve análise dessas informações, 
 """)
 
 # Ler variáveis do arquivo .streamlit/secrets.toml
-DB_USER = st.secrets["DB_USER"]
-DB_PASS = st.secrets["DB_PASS"]
-DB_HOST = st.secrets["DB_HOST"]
-DB_NAME = st.secrets["DB_NAME"]
-DB_PORT = st.secrets["DB_PORT"]
+DB_USER = st.secrets["DB_USER"] # mesmo parametro declarado em secrets no streamlit
+DB_PASS = st.secrets["DB_PASS"] # mesmo parametro declarado em secrets no streamlit
+DB_HOST = st.secrets["DB_HOST"] # mesmo parametro declarado em secrets no streamlit
+DB_NAME = st.secrets["DB_NAME"] # mesmo parametro declarado em secrets no streamlit
+DB_PORT = st.secrets["DB_PORT"] # mesmo parametro declarado em secrets no streamlit
 
 # String de conexão completa
 engine_str = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
@@ -37,7 +37,7 @@ def get_connection():
         st.success("✅ Conectado ao banco de dados RDS com sucesso!")
         return conn
     except Exception as e:
-        st.error(f"❌ Erro ao conectar ao RDS: {e}")
+        st.error(f"❌ Erro ao conectar ao RDS: {e}") 
         return None
 
 conn = get_connection()
