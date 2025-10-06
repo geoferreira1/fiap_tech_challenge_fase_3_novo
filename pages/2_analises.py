@@ -40,14 +40,14 @@ def get_connection():
         st.error(f"❌ Erro ao conectar ao RDS: {e}")
         return None
 
-engine = get_connection()
+conn = get_connection()
 
 def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
     if conn is None:
         st.stop()
     query = "SELECT * FROM questionario_covid;"
-    df = pd.read_sql_query(query, con=engine)
+    df = pd.read_sql_query(query, con=conn)
     
     # Ajusta coluna de 'moradia'
     df.rename(columns={'a006': 'situacao_escolar', 'modaria':'moradia'}, inplace=True)
