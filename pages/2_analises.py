@@ -19,11 +19,11 @@ A partir dessas condições, trouxemos uma breve análise dessas informações, 
 """)
 
 # Ler variáveis do arquivo .streamlit/secrets.toml
-DB_USER = st.secrets["POSTGRES_USER_PNAD"]
-DB_PASS = st.secrets["POSTGRES_PASSWORD_PNAD"]
-DB_HOST = st.secrets["POSTGRES_HOST_PNAD"]
-DB_PORT = st.secrets["POSTGRES_PORT_PNAD"]
-DB_NAME = st.secrets["POSTGRES_DB_PNAD"]
+DB_USER = st.secrets["DB_USER"]
+DB_PASS = st.secrets["DB_PASS"]
+DB_HOST = st.secrets["DB_HOST"]
+DB_NAME = st.secrets["DB_NAME"]
+DB_PORT = st.secrets["DB_PORT"]
 
 # String de conexão completa
 engine_str = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
