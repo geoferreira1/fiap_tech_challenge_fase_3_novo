@@ -46,7 +46,7 @@ def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
     if conn is None:
         st.stop()
-    query = "SELECT * FROM questionario_covid LIMIT 10;"
+    query = "SELECT * FROM questionario_covid where frebre_semana_anterior = 'Sim' or tosse_semana_anterior = 'Sim' or dificuldade_de_respirar_semana_anterior = 'Sim' or perda_olfato_paladar_semana_anterior = 'Sim';"
     df = pd.read_sql_query(query, con=conn)
     
     # Ajusta coluna de 'moradia'
@@ -73,6 +73,16 @@ def load_data():
 
 # Funções de customização de gráficos
 def grafico_vertical(ax, valor, titulo):
+    # Verifica se o valor está vazio ou contém apenas NaN
+    if valor.empty or pd.isna(valor.max()):
+        st.warning(f"Não há dados suficientes para o gráfico: {titulo}")
+        ax.clear()
+        ax.text(0.5, 0.5, 'Sem dados', ha='center', va='center', fontsize=12)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_title(titulo, fontweight='bold', fontsize=12)
+        return
+    
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
@@ -82,12 +92,20 @@ def grafico_vertical(ax, valor, titulo):
     ax.set_ylabel('', fontsize=10)
     ax.set_xlabel('', fontsize=10)
     ax.yaxis.set_ticks([])
-    ax.yaxis.set_ticklabels([])
     ax.tick_params(axis='both', which='major', labelsize=10)
     ax.set_title(titulo, fontweight='bold', fontsize=12)
     plt.tight_layout()
 
 def grafico_horizontal(ax, valor, titulo):
+    if valor.empty or pd.isna(valor.max()):
+        st.warning(f"Não há dados suficientes para o gráfico: {titulo}")
+        ax.clear()
+        ax.text(0.5, 0.5, 'Sem dados', ha='center', va='center', fontsize=12)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_title(titulo, fontweight='bold', fontsize=12)
+        return
+    
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_visible(False)
@@ -97,7 +115,6 @@ def grafico_horizontal(ax, valor, titulo):
     ax.set_ylabel('', fontsize=10)
     ax.set_xlabel('', fontsize=10)
     ax.xaxis.set_ticks([])
-    ax.xaxis.set_ticklabels([])
     ax.tick_params(axis='both', which='major', labelsize=10)
     ax.set_title(titulo, fontweight='bold', fontsize=12)
     plt.tight_layout()
