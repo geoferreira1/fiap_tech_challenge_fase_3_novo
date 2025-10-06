@@ -40,7 +40,7 @@ def get_connection():
         st.error(f"❌ Erro ao conectar ao RDS: {e}")
         return None
 
-conn = get_connection()
+engine = get_connection()
 
 def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
