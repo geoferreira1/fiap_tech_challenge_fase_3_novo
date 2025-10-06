@@ -25,7 +25,6 @@ host_pg = st.secrets["POSTGRES_HOST_PNAD"]
 porta_pg = st.secrets["POSTGRES_PORT_PNAD"]
 banco_pg = st.secrets["POSTGRES_DB_PNAD"]
 
-@st.cache_resource
 def get_database_connection():
     """Cria e retorna a engine de conexão com o banco de dados."""
     engine = create_engine(f"postgresql+psycopg2://{usuario_pg}:{senha_pg}@{host_pg}:{porta_pg}/{banco_pg}")
