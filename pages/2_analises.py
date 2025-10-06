@@ -46,7 +46,7 @@ def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
     if conn is None:
         st.stop()
-    query = "SELECT * FROM questionario_covid;"
+    query = "SELECT * FROM questionario_covid LIMIT 10;"
     df = pd.read_sql_query(query, con=conn)
     
     # Ajusta coluna de 'moradia'
