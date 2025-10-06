@@ -34,7 +34,6 @@ def get_database_connection():
     engine = create_engine(f"postgresql+psycopg2://{usuario_pg}:{senha_pg}@{host_pg}:{porta_pg}/{banco_pg}")
     return engine
 
-@st.cache_data
 def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
     engine = get_database_connection()
