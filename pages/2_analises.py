@@ -18,17 +18,29 @@ st.markdown("""
 A partir dessas condições, trouxemos uma breve análise dessas informações, explicitando o modo como organizamos o banco de dados, o porquê da seleção das melhores perguntas que trariam as melhores respostas e, por fim, as ações mais efetivas que o hospital deverá tomar em caso de um novo surto de COVID-19.
 """)
 
-# Carregar as credenciais dos segredos do Streamlit
-usuario_pg = st.secrets["POSTGRES_USER_PNAD"]
-senha_pg = st.secrets["POSTGRES_PASSWORD_PNAD"]
-host_pg = st.secrets["POSTGRES_HOST_PNAD"]
-porta_pg = st.secrets["POSTGRES_PORT_PNAD"]
-banco_pg = st.secrets["POSTGRES_DB_PNAD"]
+# Ler variáveis do arquivo .streamlit/secrets.toml
+DB_USER = st.secrets["POSTGRES_USER_PNAD"]
+DB_PASS = st.secrets["POSTGRES_PASSWORD_PNAD"]
+DB_HOST = st.secrets["POSTGRES_HOST_PNAD"]
+DB_PORT = st.secrets["POSTGRES_PORT_PNAD"]
+DB_NAME = st.secrets["POSTGRES_DB_PNAD"]
 
-def get_database_connection():
-    """Cria e retorna a engine de conexão com o banco de dados."""
-    engine = create_engine(f"postgresql+psycopg2://{usuario_pg}:{senha_pg}@{host_pg}:{porta_pg}/{banco_pg}")
-    return engine
+# String de conexão completa
+engine_str = f"postgresql+psycopg2://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+@st.cache_resource
+def get_connection():
+    """Cria e retorna uma conexão com o banco."""
+    try:
+        engine = create_engine(engine_str)
+        conn = engine.connect()
+        st.success("✅ Conectado ao banco de dados RDS com sucesso!")
+        return conn
+    except Exception as e:
+        st.error(f"❌ Erro ao conectar ao RDS: {e}")
+        return None
+
+conn = get_connection()
 
 def load_data():
     """Carrega os dados do banco de dados e realiza o pré-processamento."""
