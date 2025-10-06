@@ -18,15 +18,12 @@ st.markdown("""
 A partir dessas condições, trouxemos uma breve análise dessas informações, explicitando o modo como organizamos o banco de dados, o porquê da seleção das melhores perguntas que trariam as melhores respostas e, por fim, as ações mais efetivas que o hospital deverá tomar em caso de um novo surto de COVID-19.
 """)
 
-# Carregar as credenciais do .env
-load_dotenv()
-
-# PostgreSQL
-usuario_pg = os.getenv("POSTGRES_USER_PNAD")
-senha_pg = os.getenv("POSTGRES_PASSWORD_PNAD")
-host_pg = os.getenv("POSTGRES_HOST_PNAD")
-porta_pg = os.getenv("POSTGRES_PORT_PNAD")
-banco_pg = os.getenv("POSTGRES_DB_PNAD")
+# Carregar as credenciais dos segredos do Streamlit
+usuario_pg = st.secrets["POSTGRES_USER_PNAD"]
+senha_pg = st.secrets["POSTGRES_PASSWORD_PNAD"]
+host_pg = st.secrets["POSTGRES_HOST_PNAD"]
+porta_pg = st.secrets["POSTGRES_PORT_PNAD"]
+banco_pg = st.secrets["POSTGRES_DB_PNAD"]
 
 @st.cache_resource
 def get_database_connection():
